@@ -1,0 +1,18 @@
+[Unit]
+Description=Backup /home using rsync to ~/Backup/archlinux
+Documentation=https://man.archlinux.org/man/rsync.1.en
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/.scripts/backup/do-backup.sh
+Nice=10
+IOSchedulingClass=idle
+CPUSchedulingPolicy=idle
+
+# Prevent backup scripts from hanging on shutdown
+TimeoutStopSec=30
+
+[Install]
+WantedBy=default.target

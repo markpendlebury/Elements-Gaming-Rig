@@ -1,0 +1,17 @@
+#!/bin/zsh
+
+
+
+DELAY=0.2
+CURRENT_WORKSPACE=$(hyprctl activeworkspace -j | jq '.id')
+NEXT_WORKSPACE=$((CURRENT_WORKSPACE+1))
+ 
+hyprctl keyword windowrulev2 "workspace $NEXT_WORKSPACE, class:^(test)$"
+hyprctl dispatch "layoutmsg orientationtop" > /dev/null
+hyprctl dispatch exec "kitty --class='test' -e ~/Documents/repos" > /dev/null
+sleep $DELAY
+hyprctl dispatch exec "kitty --class='test' -e helix ~/Documents/repos/Elements-Hyprland-V1" > /dev/null
+sleep $DELAY
+hyprctl dispatch "togglesplit" > /dev/null
+sleep $DELAY
+hyprctl dispatch splitratio exact 1.5

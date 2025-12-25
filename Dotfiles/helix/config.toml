@@ -1,0 +1,60 @@
+theme = "gruvbox"
+
+
+[editor]
+mouse = false
+shell = ["zsh"]
+auto-completion = true
+auto-save = true
+color-modes = true
+
+[editor.file-picker]
+hidden = false
+git-global = false
+
+[editor.lsp]
+display-signature-help-docs = false
+display-inlay-hints = false
+auto-signature-help = false
+
+[editor.indent-guides]
+render = true
+
+[editor.statusline]
+mode.normal ="NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
+left = ["mode", "spinner", "file-name", "read-only-indicator", "file-modification-indicator" ]
+center = ["version-control"]
+right = ["register", "file-encoding", "position"]
+
+[keys.normal]
+C-left = "move_prev_word_start"
+C-right = "move_next_word_start"
+C-S-left = "goto_line_start"
+C-S-right = "goto_line_end"
+C-S-up = "goto_file_start"
+C-S-down = "goto_file_end"
+C-S-d = "delete_word_forward"
+
+A-S-up = "vsplit"
+A-S-down = "hsplit"
+A-S-left = "vsplit"
+A-S-right = "vsplit"
+
+A-up = "jump_view_up"
+A-down = "jump_view_down"
+A-left = "jump_view_left"
+A-right = "jump_view_right"
+
+
+[keys.insert]
+C-left = "move_prev_word_start"
+C-right = "move_next_word_start"
+C-S-left = "goto_line_start"
+C-S-right = "goto_line_end"
+C-S-up = "goto_file_start"
+C-S-down = "goto_file_end"
+C-S-d = "delete_word_forward"
+C-tab = "completion"
+

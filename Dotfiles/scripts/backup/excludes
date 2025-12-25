@@ -1,0 +1,12 @@
+Backup/
+Media/
+.cache/
+__pycache__/
+.pytest_cache/
+.terraform/
+.venv/
+venv/
+.pip
+.local/share/virtualenvs
+**/mysql/
+**/nginx/cache/

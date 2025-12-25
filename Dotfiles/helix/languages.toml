@@ -1,0 +1,75 @@
+##############################
+## Configuration for lsp-ai ##
+##############################
+
+[language-server.lsp-ai]
+command = "lsp-ai"
+
+[language-server.lsp-ai.config.memory]
+file_store = { }
+
+[language-server.lsp-ai.config.models.model1]
+type = "anthropic"
+chat_endpoint = "https://api.anthropic.com/v1/messages"
+model = "claude-3-5-sonnet-20241022"
+auth_token_env_var_name = "ANTHROPIC_API_KEY"
+
+[language-server.lsp-ai.config.completion]
+model = "model1"
+
+[language-server.lsp-ai.config.completion.parameters]
+max_tokens = 64
+max_context = 1024
+system = "You are an AI programming assistant. Given a piece of code with the cursor location marked by \"<CURSOR>\", replace \"<CURSOR>\" with the correct code or comment. Only respond with code, no explanations."
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "def fibonacci(n):\n    if n <= 1:\n        return n\n    else:\n        return <CURSOR>"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "assistant"
+content = "fibonacci(n-1) + fibonacci(n-2)"
+
+[[language-server.lsp-ai.config.completion.parameters.messages]]
+role = "user"
+content = "{CODE}"
+
+#################################
+## Configuration for languages ##
+#################################
+
+[[language]]
+name = "python"
+language-servers = [ "pylsp", "lsp-ai" ]
+formatter = { command = "black", args = [ "--quiet", "-" ]}
+auto-format = true
+
+[language-server.pylsp.config.pylsp.plugins]
+flake8 = {enabled = false}
+autopep8 = {enabled = false}
+mccabe = {enabled = false}
+pycodestyle = {enabled = false}
+pyflakes = {enabled = false}
+pylint = {enabled = false}
+yapf = {enabled = false}
+ruff = { enabled = true, ignore = ["F401"], lineLength = 120 }
+
+[[language]]
+name = "bash"
+language-servers = [ "lsp-ai" ]
+
+[[language]]
+name = "rust"
+language-servers = [ "rust-analyzer", "lsp-ai" ]
+
+[[language]]
+name = "c-sharp"
+language-servers = [ "omnisharp", "lsp-ai" ]
+
+[[language]]
+name = "hcl"
+language-servers = [ "terraform-ls", "lsp-ai" ]
+
+[[language]]
+name = "go"
+language-servers = [ "gopls", "lsp-ai" ]

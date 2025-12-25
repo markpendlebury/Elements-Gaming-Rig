@@ -1,0 +1,11 @@
+[Unit]
+Description=Periodic home backup timer
+
+[Timer]
+# Triggers backup once every 6 hours
+OnCalendar=*-*-* 06,12,18,23:00
+
+Persistent=true
+
+[Install]
+WantedBy=timers.target
