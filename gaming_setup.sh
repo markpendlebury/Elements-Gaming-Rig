@@ -3,6 +3,14 @@
 # Gaming Setup Script for Arch Linux with Hyprland
 # Supports installation and full revert of changes
 
+# NOTES:
+#
+# https://archive.archlinux.org/packages/n/nvidia/
+# https://github.com/Frogging-Family/nvidia-all
+#
+# 
+
+
 set -e
 
 BACKUP_DIR="$HOME/.gaming_setup_backups"
