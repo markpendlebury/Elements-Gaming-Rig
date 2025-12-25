@@ -20,7 +20,7 @@ PACKAGES=(
     "pavucontrol"
     "bluez"
     "bluez-utils"
-    "blueberry"
+    "blueman"
     "network-manager-applet"
     "networkmanager-openvpn"
     "openssh"
