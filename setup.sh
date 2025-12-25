@@ -165,7 +165,7 @@ for DIR in ${CONFIG_DIRECTORIES[@]}; do
 done
 
 # These config directories are not in the .config directory
-ROOT_DIRECTORIES=(".themes" ".scripts/non-exec" ".scripts/non-commit" ".scripts/backup" ".icons" "Pictures/Wallpapers" "Pictures/Screenshots")
+ROOT_DIRECTORIES=(".themes" ".scripts/non-exec" ".scripts/non-commit" ".scripts/backup" ".icons" "Pictures/Wallpapers" "Pictures/Screenshots" ".local/share/Steam")
 for DIR in ${ROOT_DIRECTORIES[@]}; do
     mkdir -p ~/$DIR && echo -e "$CNT - Created ~/$DIR"
 done
@@ -194,6 +194,7 @@ ln -sf $PWD/Dotfiles/scripts/non-exec/random-hyprpaper.py ~/.scripts/non-exec/ra
 ln -sf $PWD/Dotfiles/wofi/gruvbox.css ~/.config/wofi/style.css
 ln -sf $PWD/Dotfiles/mako ~/.config/mako
 ln -sf $PWD/Wallpapers ~/Pictures
+ln -sf $PWD/Dotfiles/Steam/steam_dev.cfg ~/.local/share/Steam/steam_dev.cfg
 
 echo -e "$COK - Running post install for helix-editor..."
 
