@@ -45,7 +45,6 @@ PACKAGES=(
     "gtk-layer-shell"
     "gdk-pixbuf2"
     "libdbusmenu-gtk3"
-    "nwg-displays"
     "helix"
     "thunar"
     "wofi"
