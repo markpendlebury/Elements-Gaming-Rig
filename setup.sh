@@ -11,6 +11,7 @@ CAC="[\e[1;33mACTION\e[0m]"
 PACKAGES=(
     "hyprland"
     "hyprpaper"
+    "kitty"
     "git"
     "jq"
     "fzf"
@@ -164,7 +165,7 @@ for DIR in ${CONFIG_DIRECTORIES[@]}; do
 done
 
 # These config directories are not in the .config directory
-ROOT_DIRECTORIES=(".themes" ".scripts/non-exec" ".scripts/non-commit" ".scripts/backup" ".icons" "Pictures/Wallpapers" "Pictures/Screenshots" ".local/share/Steam")
+ROOT_DIRECTORIES=(".themes" ".scripts/non-exec" ".scripts/non-commit" ".scripts/backup" ".icons" "Pictures" "Pictures/Screenshots" ".local/share/Steam")
 for DIR in ${ROOT_DIRECTORIES[@]}; do
     mkdir -p ~/$DIR && echo -e "$CNT - Created ~/$DIR"
 done
