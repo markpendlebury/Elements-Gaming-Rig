@@ -66,26 +66,7 @@ install_packages() {
     fi
     
     # Check for nvidia-open and handle driver selection
-    local nvidia_pkg="nvidia"
-    if pacman -Qq nvidia-open &> /dev/null; then
-        warning "Detected nvidia-open (open-source driver)"
-        echo ""
-        echo "You have two options:"
-        echo "  1. Keep nvidia-open (open-source, better Wayland support, may have gaming issues)"
-        echo "  2. Switch to nvidia (proprietary, better gaming performance)"
-        echo ""
-        echo -n "Choose [1/2]: "
-        read -r driver_choice
-        
-        if [ "$driver_choice" = "2" ]; then
-            log "Removing nvidia-open and installing proprietary nvidia..."
-            sudo pacman -Rdd --noconfirm nvidia-open
-            echo "nvidia-open" > "$BACKUP_DIR/removed_nvidia_open.txt"
-        else
-            log "Keeping nvidia-open driver"
-            nvidia_pkg="nvidia-open"
-        fi
-    fi
+    local nvidia_pkg="nvidia-open-dkms"
     
     # Install packages
     local packages=(
@@ -95,6 +76,7 @@ install_packages() {
         # NVIDIA drivers
         "$nvidia_pkg"
         "nvidia-utils"
+        "nvidia-settings"
         "lib32-nvidia-utils"
         
         # Vulkan support
@@ -113,42 +95,19 @@ install_packages() {
     )
     
     log "Installing: ${packages[*]}"
-    sudo pacman -S --needed --noconfirm "${packages[@]}"
-    
+    # sudo pacman -S --needed --noconfirm "${packages[@]}"
+    yay -S --needed --noconfirm "${packages[@]}"
+
     # Save installed packages list
     echo "${packages[@]}" > "$BACKUP_DIR/installed_packages_$TIMESTAMP.txt"
     
     log "Core packages installed successfully"
 }
 
-# Function to install AUR packages
-install_aur_packages() {
-    log "Checking for AUR helper..."
-    
-    if ! command -v yay &> /dev/null && ! command -v paru &> /dev/null; then
-        warning "No AUR helper found. Would you like to install yay? (y/n)"
-        read -r response
-        if [[ "$response" =~ ^[Yy]$ ]]; then
-            log "Installing yay..."
-            cd /tmp
-            git clone https://aur.archlinux.org/yay.git
-            cd yay
-            makepkg -si --noconfirm
-            cd ~
-            log "yay installed successfully"
-        else
-            warning "Skipping AUR packages (protonup-qt, goverlay)"
-            return
-        fi
-    fi
-    
-    local aur_helper="yay"
-    if command -v paru &> /dev/null; then
-        aur_helper="paru"
-    fi
-    
+# Install aur packages
+install_aur_packages() {   
     log "Installing AUR packages with $aur_helper..."
-    $aur_helper -S --needed --noconfirm protonup-qt goverlay
+    yay -S --needed --noconfirm protonup-qt goverlay
     
     echo "protonup-qt goverlay" > "$BACKUP_DIR/aur_packages_$TIMESTAMP.txt"
     log "AUR packages installed successfully"
@@ -219,8 +178,6 @@ env = GBM_BACKEND,nvidia-drm
 env = __GLX_VENDOR_LIBRARY_NAME,nvidia
 env = WLR_NO_HARDWARE_CURSORS,1
 
-# GameMode integration
-env = LD_PRELOAD,/usr/\$LIB/libgamemodeauto.so.0
 EOF
     
     log "Added NVIDIA environment variables to Hyprland config"

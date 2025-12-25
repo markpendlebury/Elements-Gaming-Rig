@@ -3,17 +3,9 @@
 # Display the weather inside your terminal:
 alias weather='curl wttr.in/$POSTCODE'
 
-alias athena='clear && ssh mpendlebury@athena'
-
-alias athena.remote="clear && ssh -i ~/.ssh/keys/mpendlebury  -p 666 mpendlebury@elesoft.dev"
-
 alias steamdeck='ssh deck@steamdeck'
 
 alias hx='helix'
-
-alias monarch="clear && cd ~/Documents/repos/Elesoft/clients/NewSites/MonarchCountryProducts"
-
-alias ogdens="clear && cd ~/Documents/repos/Elesoft/clients/NewSites/OgdensShootingSupplies"
 
 alias whereami='curl ipinfo.io'
 
@@ -28,79 +20,15 @@ repos() {
     cd ~/Documents/repos
 }
 
-# Copy the contents of a file to clipboard using xclip:
-clipboard() {
-    cat "$1" | xclip -sel clip
-    echo "The contents of $1 are now in your clipboard"
-}
-
-# This function calls my hashiversion api which
-# returns the latest version number for a
-# specified hashicorp product
-
-hashicorp.version() {
-    if [ $# -ne 1 ]; then
-        echo "Usage: hashicorp.version <application>"
-    else
-        curl -s https://hashiversion.elesoft.co.uk/$1
-    fi
-}
-
 dots(){
     if [ "$1" = "edit" ]; then
-        cd ~/Documents/repos/Elements-Hyprland-V1 && helix .
+        cd ~/Documents/repos/Elements-Gaming-Rig && helix .
     elif [ "$1" = "view" ]; then
-        cd ~/Documents/repos/Elements-Hyprland-V1
+        cd ~/Documents/repos/Elements-Gaming-Rig
     else
         echo "Usage: dotfiles [edit|view]"
     fi
 }
-
-# Python Environment Setup
-pyenv() {
-    python -m venv venv
-    source venv/bin/activate
-    
-    # Ensure virtualenv is properly activated
-    export VIRTUAL_ENV=$PWD/venv
-    export PATH="$VIRTUAL_ENV/bin:$PATH"
-    
-    # Upgrade pip
-    python -m pip install --upgrade pip
-    
-    # Install test requirements first
-    if [ -f test-requirements.txt ]; then
-        echo "Installing test-requirements.txt"
-        pip install -r test-requirements.txt
-    fi
-    
-    # Install main requirements
-    if [ -f requirements.txt ]; then
-        echo "Installing requirements.txt"
-        pip install -r requirements.txt
-    fi
-    
-    # Set PYTHONPATH to prioritize virtualenv and current directory
-    export PYTHONPATH="$VIRTUAL_ENV/lib/python${pythonVersion}/site-packages:$PWD:$PYTHONPATH"
-    
-    echo "Development environment setup complete"
-    echo "You are running python version: $(python --version)"
-}
-
-# ====================
-#     BJSS Related
-# ====================
-
-alias iag.ecp.dev="export TF_VAR_ecp_release_version=0.2.0 && export TF_VAR_org_environment=Dev"
-alias iag.ecp.prd="export TF_VAR_ecp_release_version=0.2.0 && export TF_VAR_org_environment=Prd"
-
-
-# ====================
-#     Git Related
-# ====================
-
-alias ga='git ls-files -m -o --exclude-standard | fzf -m --preview "git diff --color=always {}" | xargs -r git add'
-
 
 # ====================
 #     Env vars
